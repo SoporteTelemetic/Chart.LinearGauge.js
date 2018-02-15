@@ -1,0 +1,30 @@
+{
+  "name": "lineargauge",
+  "version": "2.0.0",
+  "description": "Linear Gauge extention for Chart.JS",
+  "main": "Chart.LinearGauge.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexanderVantsov/Chart.LinearGauge.js.git"
+  },
+  "keywords": [
+    "linear",
+    "gauge",
+    "chart",
+    "charts",
+    "chart.js",
+    "chartjs"
+  ],
+  "author": "Alexander Vantsov (alexj8784@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexanderVantsov/Chart.LinearGauge.js/issues"
+  },
+  "homepage": "https://github.com/AlexanderVantsov/Chart.LinearGauge.js#readme",
+  "dependencies": {
+    "chart.js": "^2.7.1"
+  }
+}
