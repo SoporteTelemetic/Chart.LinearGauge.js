@@ -314,6 +314,7 @@
     barChartData9.datasets.push({
         data: [0],
         pointer: 'point',
+        shape: 'circle',
         width: 12,
         offset: 7,
         backgroundColor: 'red',
@@ -410,7 +411,7 @@
         shape: 'triangle',
         width: 9,
         height: 12,
-        offset: 10,
+        offset: 14,
         backgroundColor: '#32fd06'
     });
     barChartData11.datasets.push({
@@ -419,7 +420,7 @@
         shape: 'triangle',
         width: 9,
         height: 12,
-        offset: 10,
+        offset: 14,
         backgroundColor: '#32fd06'
     });
     barChartData11.datasets.push({
@@ -428,7 +429,7 @@
         shape: 'triangle',
         width: 9,
         height: 12,
-        offset: 10,
+        offset: 14,
         backgroundColor: '#fef105'
     });
     barChartData11.datasets.push({
@@ -437,7 +438,7 @@
         shape: 'triangle',
         width: 9,
         height: 12,
-        offset: 10,
+        offset: 14,
         backgroundColor: '#fef105'
     });
     barChartData11.datasets.push({
@@ -446,7 +447,7 @@
         shape: 'triangle',
         width: 9,
         height: 12,
-        offset: 10,
+        offset: 14,
         backgroundColor: '#fe0c05'
     });
     barChartData11.datasets.push({
@@ -455,7 +456,7 @@
         shape: 'triangle',
         width: 9,
         height: 12,
-        offset: 10,
+        offset: 14,
         backgroundColor: '#fe0c05'
     });
     barChartData11.datasets.push({
@@ -518,14 +519,14 @@
         backgroundColor: '#b08948',
         colorRanges: [{
             startpoint: -15,
-            breakpoint: -5,
+            breakpoint: -13,
             color: 'red'
         }, {
-            startpoint: -5,
-            breakpoint: 5,
+            startpoint: -13,
+            breakpoint: 13,
             color: 'green'
         }, {
-            startpoint: 5,
+            startpoint: 13,
             breakpoint: 15,
             color: 'red'
         }]
@@ -536,21 +537,21 @@
         data: [4],
         width: 30,
         height: 40,
-        offset: -27,
+        offset: -17,
         img: 'hand-pointer.png'
     });
     barChartData12.datasets.push({
         data: [0],
         width: 30,
         height: 30,
-        offset: -15,
+        offset: 0,
         img: 'diamond3.png'
     });
     barChartData12.datasets.push({
         data: [0],
         width: 30,
         height: 30,
-        offset: -15,
+        offset: 0,
         img: 'shapes7.png'
     });
     </script>
@@ -573,14 +574,13 @@
                     },
                     axisWidth: 6,
                     ticks: {
-                        tickLabels: {
-                            interval: 50
-                        },
                         majorTicks: {
-                            interval: 100
+                            interval: 100,
+                            height: 1,
                         },
                         minorTicks: {
-                            interval: 25
+                            interval: 25,
+                            height: 1,
                         }
                     },
                     scaleLabel: {
@@ -601,7 +601,6 @@
 		        }
             }
         });
-
 
         var ctx2 = document.getElementById("canvas2").getContext("2d");
         window.myBar2 = new Chart(ctx2, {
@@ -977,7 +976,266 @@
             barChartData8.datasets[1].data = [randomScalingFactor(90) - 45];
             barChartData8.datasets[2].data = [randomScalingFactor(90) - 45];
             window.myBar8.update();
+        }, 3000);
+
+
+        var ctx9 = document.getElementById("canvas9").getContext("2d");
+        window.myBar9 = new Chart(ctx9, {
+            type: 'linearGauge',
+            data: barChartData9,
+            options: {
+                responsive: true,
+                scale: {
+                    horizontal: false,
+                    range: {
+                        startValue: -150,
+                        endValue: 150
+                    },
+                    responsive: true,
+                    font: {
+                        fontName: 'Arial',
+                        fontSize: 12
+                    },
+                    axisWidth: 0,
+                    axisColor: '#c5c7cf',
+                    ticks: {
+                        majorTicks: {
+                            interval: 50,
+                            width: 6,
+                            height: 1,
+                            offset: 1,
+                            color: '#fe013a'
+                        },
+                        minorTicks: {
+                            interval: 6.25,
+                            width: 2,
+                            height: 1,
+                            offset: 0,
+                            color: '#e1f305'
+                        },
+                    },
+                    scaleLabel: {
+                        display: true,
+                        interval: 50,
+                        units: 'kW',
+                        offset: -22,
+                        color: '#5f5f5f'
+                    },
+                },
+                legend: {
+                    display: true,
+                    position: 'bottom'
+                }
+            }
+            
+        });
+
+        setInterval(function() {
+            barChartData9.datasets[0].data = [randomScalingFactor(280) - 140];
+            barChartData9.datasets[1].data = [randomScalingFactor(280) - 140];
+            barChartData9.datasets[2].data = [randomScalingFactor(280) - 140];
+            window.myBar9.update();
+        }, 4000);
+
+		var ctx10 = document.getElementById("canvas10").getContext("2d");
+        window.myBar10 = new Chart(ctx10, {
+            type: 'linearGauge',
+            data: barChartData10,
+            options: {
+                responsive: true,
+                scale: {
+                    horizontal: true,
+                    range: {
+                        startValue: -150,
+                		endValue: 150
+                    },
+                    responsive: true,
+                    font: {
+                        fontName: 'Arial',
+                        fontSize: 8
+                    },
+                    axisWidth: 8,
+                    axisColor: '#c5c7cf',
+                    ticks: {
+                         majorTicks: {
+			                interval: 50,
+			                width: 8,
+			                height: 1,
+			                offset: 1,
+			                color: '#000'
+			            },
+			            minorTicks: {
+			                interval: 12.5,
+			                width: 3,
+			                height: 1,
+			                offset: 0,
+			                color: '#000'
+			            },
+                    },
+                    scaleLabel: {
+                        display: true,
+                        interval: 50,
+		                units: 'mA',
+		                offset: -17,
+                        color: '#0f0f0f'
+                    },
+                    scaleColorRanges: [{
+		                start: -150,
+		                end: -100,
+		                color: '#1b02f7'
+		            }, {
+		                start: -100,
+		                end: -30,
+		                color: '#8888fb'
+		            }, {
+		                start: -30,
+		                end: 30,
+		                color: '#47fe12'
+		            }, {
+		                start: 30,
+		                end: 100,
+		                color: '#e1e10d'
+		            }, {
+		                start: 100,
+		                end: 150,
+		                color: '#fe1229'
+		            }],
+                },
+                legend: {
+                    display: false,
+                    position: 'bottom'
+                }
+            }
+            
+        });
+        
+        setInterval(function() {
+            barChartData10.datasets[0].data = [randomScalingFactor(280) - 140];
+            window.myBar10.update();
+        }, 3000);
+		
+		var ctx11 = document.getElementById("canvas11").getContext("2d");
+        window.myBar11 = new Chart(ctx11, {
+            type: 'linearGauge',
+            data: barChartData11,
+            options: {
+                responsive: true,
+                scale: {
+                    horizontal: false,
+                    range: {
+                        startValue: -15,
+                		endValue: 15
+                    },
+                    responsive: true,
+                    font: {
+                        fontName: 'Arial',
+                        fontSize: 10
+                    },
+                    axisWidth: 40,
+                    axisColor: '#e9eaed',
+                    ticks: {
+                         majorTicks: {
+			                interval: 5,
+			                width: 30,
+			                height: 1,
+			                offset: 0,
+			                color: '#a9adb8'
+			            },
+			            minorTicks: {
+			                interval: 1,
+			                width: 20,
+			                height: 1,
+			                offset: 0,
+			                color: '#cfd2d8'
+			            },
+                    },
+                    scaleLabel: {
+                        display: true,
+                        interval: 5,
+		                units: '%',
+		                offset: 24,
+		                color: 'red'
+                    },
+                    
+                },
+                legend: {
+                    display: false,
+                    position: 'bottom'
+                }
+            }
+            
+        });
+        
+        setInterval(function() {
+            barChartData11.datasets[6].data = [randomScalingFactor(28) - 14];
+            barChartData11.datasets[7].data = [randomScalingFactor(28) - 14];
+            barChartData11.datasets[8].data = [randomScalingFactor(28) - 14];
+            window.myBar11.update();
+        }, 3000);
+		
+		var ctx12 = document.getElementById("canvas12").getContext("2d");
+        window.myBar12 = new Chart(ctx12, {
+            type: 'linearGauge',
+            data: barChartData12,
+            options: {
+                responsive: true,
+                scale: {
+                    horizontal: true,
+                    range: {
+                        startValue: -10,
+                        endValue: 25
+                    },
+                    responsive: true,
+                    font: {
+                        fontName: 'Arial',
+                        fontSize: 10
+                    },
+                    axisColor: '#484284',
+                    axisWidth: 4,
+                    ticks: {
+                        majorTicks: {
+                            interval: 5,
+                            width: 3,
+                            height: 1,
+                            offset: 0,
+                            color: '#f3f4f5'
+                        },
+                        minorTicks: {
+                            interval: 1,
+                            width: 2,
+                            height: 1,
+                            offset: 0,
+                            color: '#f4f5f7'
+                        },
+                    },
+                    scaleLabel: {
+                        display: true,
+                        interval: 5,
+                        units: '%',
+                        offset: 24,
+                        color: 'red'
+                    },
+                    
+                },
+                legend: {
+                    display: false,
+                    position: 'bottom'
+                }
+            }
+            
+        });
+
+        //window.myBar12.generateLegend();
+        setInterval(function() {
+            barChartData12.datasets[0].data = [randomScalingFactor(35) - 10];
+            barChartData12.datasets[1].data = [randomScalingFactor(35) - 10];
+            barChartData12.datasets[2].data = [randomScalingFactor(35) - 10];
+            window.myBar12.update();
         }, 10000);
+
+
+
+		
         
     };
     </script>

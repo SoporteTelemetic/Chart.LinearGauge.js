@@ -377,7 +377,7 @@
                 ctx.beginPath();
                 if (typeof(labels) == 'object' && labels.length > 0) {
                     ctx.fillStyle = opts.scaleLabel.color;
-                    ctx.font = opts.font.fontName;
+                    ctx.font = opts.font.fontSize + 'px ' + opts.font.fontName;
                     for (var v = 0; v < labels.length; v++) {
                         var val = labels[v];
                         if (opts.scaleLabel.display) {
@@ -424,10 +424,12 @@
                     ctx.lineWidth = tickOpts.minorTicks.height;
                     for (var v = 0; v < this.minTicks.length; v++) {
                         var val = this.minTicks[v];
-                        ctx.moveTo(this.xCenter - (tickOpts.minorTicks.width / 2) + tickOpts.minorTicks.offset,
-                            this.scalePoint(val) - (tickOpts.minorTicks.height / 2));
-                        ctx.lineTo((this.xCenter - (tickOpts.minorTicks.width / 2) + tickOpts.minorTicks.offset) + tickOpts.minorTicks.width,
-                            this.scalePoint(val) - (tickOpts.minorTicks.height / 2));
+                        ctx.moveTo(Math.ceil(this.xCenter - (tickOpts.minorTicks.width / 2) + tickOpts.minorTicks.offset),
+                        	Math.ceil(this.scalePoint(val)) + 0.5);
+                            //this.scalePoint(val) - (tickOpts.minorTicks.height / 2));
+                        ctx.lineTo(Math.ceil((this.xCenter - (tickOpts.minorTicks.width / 2) + tickOpts.minorTicks.offset) + tickOpts.minorTicks.width),
+                        	Math.ceil(this.scalePoint(val)) + 0.5);
+                            //this.scalePoint(val) - (tickOpts.minorTicks.height / 2));
                         ctx.stroke();
                     }
                 }
@@ -441,10 +443,12 @@
                     ctx.lineWidth = tickOpts.majorTicks.height;
                     for (var v = 0; v < this.majTicks.length; v++) {
                         var val = this.majTicks[v];
-                        ctx.moveTo(this.xCenter - (tickOpts.majorTicks.width / 2) + tickOpts.majorTicks.offset,
-                            this.scalePoint(val) - (tickOpts.majorTicks.height / 2));
-                        ctx.lineTo((this.xCenter - (tickOpts.majorTicks.width / 2) + tickOpts.majorTicks.offset) + tickOpts.majorTicks.width,
-                            this.scalePoint(val) - (tickOpts.majorTicks.height / 2));
+                        ctx.moveTo(Math.ceil(this.xCenter - (tickOpts.majorTicks.width / 2) + tickOpts.majorTicks.offset),
+                        	Math.ceil(this.scalePoint(val)) + 0.5);
+                            //this.scalePoint(val) - (tickOpts.majorTicks.height / 2));
+                        ctx.lineTo(Math.ceil((this.xCenter - (tickOpts.majorTicks.width / 2) + tickOpts.majorTicks.offset) + tickOpts.majorTicks.width),
+                        	Math.ceil(this.scalePoint(val)) + 0.5);
+                            //this.scalePoint(val) - (tickOpts.majorTicks.height / 2));
                         ctx.stroke();
                     }
                 }
@@ -455,7 +459,7 @@
                 ctx.beginPath();
                 if (typeof(labels) == 'object' && labels.length > 0) {
                     ctx.fillStyle = opts.scaleLabel.color;
-                    ctx.font = opts.font.fontName;
+                    ctx.font = opts.font.fontSize + 'px ' + opts.font.fontName;
                     for (var v = 0; v < labels.length; v++) {
                         var val = parseFloat(labels[v]);
                         if (opts.scaleLabel.display) {

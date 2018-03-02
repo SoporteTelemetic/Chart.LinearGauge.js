@@ -57,6 +57,7 @@
 			rectangle._Scale = me.getScaleForId(chart.options.scale.id || 'gaugescale');
 			rectangle._datasetIndex = me.index;
 			rectangle._index = index;
+			rectangle.rangeColorImage = null;
 
 			rectangle._model = {
 				datasetLabel: dataset.label,
@@ -82,6 +83,7 @@
 			var dataset = me.getDataset().data;
 			var dopt = me.getDataset();
 			var chart = me.chart;
+			var datasets = chart.data.datasets;
 			var gaugeOptions = chart.options.elements.gaugerect;
 			var vscale = me.getScaleForId(chart.options.scale.id || 'gaugescale');
 			//var base = vscale.getBasePixel();
@@ -97,6 +99,14 @@
 			model.y = horizontal ? (vpixels.offset - (dopt.width || gaugeOptions.width)) : vpixels.head;
 			model.height = horizontal ? (dopt.width || gaugeOptions.width) : (vpixels.base - vpixels.head);
 			model.width = horizontal ? (vpixels.head - vpixels.base) : (dopt.width || gaugeOptions.width);
+			model.value = vscale.getRightValue(datasets[me.index].data[index]);
+
+			model.scaleValue = 0;
+            if (horizontal) {
+                model.scaleValue = vscale.width / (vscale.options.range.endValue - vscale.options.range.startValue);
+            } else {
+                model.scaleValue = vscale.height / (vscale.options.range.endValue - vscale.options.range.startValue);
+            }
 			
 			if(typeof start.x === 'undefined' && typeof start.y === 'undefined'){
 				if(horizontal){
