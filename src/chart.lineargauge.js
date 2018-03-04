@@ -2,26 +2,71 @@
 
 (function(Chart) {
 	var helpers = Chart.helpers;
-    Chart.defaults.global.animation.duration = 2000;
+	var plugins = Chart.plugins;
+    Chart.defaults.global.animation.duration = 1000;
+
 
 	Chart.defaults._set('linearGauge', {
 		scale: {
-			type: 'linearGauge'
-		},
-		horizontal: false,
+			type: 'linearGauge',
+            horizontal: false,
+            range: {
+                startValue: -100,
+                endValue: 500
+            },
+            responsive: true,
+            font: {
+                fontName: 'Arial',
+                fontSize: 12
+            },
+            axisWidth: 6,
+            ticks: {
+                majorTicks: {
+                    interval: 100,
+                    height: 1,
+                }
+            },
+            scaleLabel: {
+                display: true,
+                interval: 100,
+                units: '',
+                customValues: [],
+                offset: -10,
+                color: '#777b80'
+            }
+        },
         padding: {
             top: 0,
             bottom: 0,
             left: 0,
             right: 0
         },
-        multiTooltipTitles: 'Total'
+        tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                    if (label) {
+                        label += ': ';
+                    }
+                    label += Math.round(data.datasets[tooltipItem.datasetIndex].data[0] * 100) / 100;
+                    return label;
+                }
+            }
+        },
+        legend: {
+            display: true,
+            labels: {
+                fontColor: 'rgb(0, 0, 0)'
+            },
+            position: 'bottom'
+        }
 	});
 
 	Chart.controllers.linearGauge = Chart.DatasetController.extend({
 		
 		dataElementType: Chart.elements.Gaugerect,
-		
+
 		initialize: function() {
 			var me = this;
 			var meta;
@@ -29,6 +74,7 @@
 			Chart.DatasetController.prototype.initialize.apply(me, arguments);
 
 			meta = me.getMeta();
+			
 		},
 		
 		linkScales: helpers.noop,
@@ -59,6 +105,7 @@
 			rectangle._index = index;
 			rectangle.rangeColorImage = null;
 
+			//	Init element model
 			rectangle._model = {
 				datasetLabel: dataset.label,
 				label: chart.data.labels[index],
@@ -67,13 +114,12 @@
 				borderColor: custom.borderColor ? custom.borderColor : helpers.valueAtIndexOrDefault(dataset.borderColor, index, rectangleOptions.borderColor),
 				borderWidth: custom.borderWidth ? custom.borderWidth : helpers.valueAtIndexOrDefault(dataset.borderWidth, index, rectangleOptions.borderWidth)
 			};
+
+			//	Set empty view as start point for animation
 			if(typeof rectangle._view === 'undefined') rectangle._view = {};
 
 			me.updateElementGeometry(rectangle, index, reset);
 
-			//rectangle.pivot();
-            //rectangle._view.height = 0;
-            //rectangle._view.y = 0;
 		},
 		
 		updateElementGeometry: function(rectangle, index, reset) {

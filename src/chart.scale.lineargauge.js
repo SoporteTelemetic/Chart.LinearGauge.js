@@ -203,18 +203,20 @@
                     var displayW = this.width - opts.padding.left - opts.padding.right;
                     var rangeH = opts.range.endValue - opts.range.startValue;
                     var factor = displayW / rangeH;
-                    return Math.round((val * factor) + opts.padding.left - (opts.range.startValue * factor));
+                    return Math.round((val * factor) + opts.padding.left + me.left - (opts.range.startValue * factor));
                 };
-                me.yCenter = this.height / 2; //	center of chart located at the center of canvas
+                
             } else {
                 this.scalePoint = function(val) {
                     var displayH = this.height - opts.padding.top - opts.padding.bottom;
                     var rangeH = opts.range.endValue - opts.range.startValue;
                     var factor = displayH / rangeH;
-                    return Math.round(this.height - (val * factor - (opts.range.startValue * factor)) - opts.padding.bottom);
+                    return Math.round(this.height - (val * factor - (opts.range.startValue * factor)) - opts.padding.bottom + me.top);
                 };
-                me.xCenter = this.width / 2; //	center of chart located at the center of canvas
+
             }
+            me.xCenter = this.left + this.width / 2; // center of chart located at the center of canvas
+            me.yCenter = this.top + this.height / 2; // center of chart located at the center of canvas
 
             // Width
 			if (isHorizontal) {
@@ -244,60 +246,6 @@
 				}
 			}
 
-			// Don't bother fitting the ticks if we are not showing them
-			if (tickOpts.display && display) {
-				var largestTextWidth = helpers.longestText(me.ctx, tickFont.font, labels, me.longestTextCache);
-				var tallestLabelHeightInLines = helpers.numberOfLabelLines(labels);
-				var lineSpace = opts.font.fontSize * 0.5;
-				var tickPadding = me.options.ticks.padding;
-
-				if (isHorizontal) {
-					// A horizontal axis is more constrained by the height.
-					me.longestLabelWidth = largestTextWidth;
-
-					var angleRadians = helpers.toRadians(me.labelRotation);
-					var cosRotation = Math.cos(angleRadians);
-					var sinRotation = Math.sin(angleRadians);
-
-					// TODO - improve this calculation
-					var labelHeight = (sinRotation * largestTextWidth)
-						+ (tickFont.size * tallestLabelHeightInLines)
-						+ (lineSpace * (tallestLabelHeightInLines - 1))
-						+ lineSpace; // padding
-
-					minSize.height = Math.min(me.maxHeight, minSize.height + labelHeight + tickPadding);
-
-					me.ctx.font = tickFont.font;
-					var firstLabelWidth = computeTextSize(me.ctx, labels[0], tickFont.font);
-					var lastLabelWidth = computeTextSize(me.ctx, labels[labels.length - 1], tickFont.font);
-
-					// Ensure that our ticks are always inside the canvas. When rotated, ticks are right aligned
-					// which means that the right padding is dominated by the font height
-					if (me.labelRotation !== 0) {
-						me.paddingLeft = opts.position === 'bottom' ? (cosRotation * firstLabelWidth) + 3 : (cosRotation * lineSpace) + 3; // add 3 px to move away from canvas edges
-						me.paddingRight = opts.position === 'bottom' ? (cosRotation * lineSpace) + 3 : (cosRotation * lastLabelWidth) + 3;
-					} else {
-						me.paddingLeft = firstLabelWidth / 2 + 3; // add 3 px to move away from canvas edges
-						me.paddingRight = lastLabelWidth / 2 + 3;
-					}
-				} else {
-					// A vertical axis is more constrained by the width. Labels are the
-					// dominant factor here, so get that length first and account for padding
-					if (tickOpts.mirror) {
-						largestTextWidth = 0;
-					} else {
-						// use lineSpace for consistency with horizontal axis
-						// tickPadding is not implemented for horizontal
-						largestTextWidth += tickPadding + lineSpace;
-					}
-
-					minSize.width = Math.min(me.maxWidth, minSize.width + largestTextWidth);
-
-					me.paddingTop = tickFont.size / 2;
-					me.paddingBottom = tickFont.size / 2;
-				}
-			}
-
             me.handleMargins();
 
 			me.width = minSize.width;
@@ -317,7 +265,7 @@
                 //	Draw scale background
                 ctx.beginPath();
                 ctx.fillStyle = opts.axisColor;
-                ctx.rect(opts.padding.left, this.yCenter - opts.axisWidth / 2,
+                ctx.rect(this.xCenter - this.width/2 + opts.padding.left, this.yCenter - opts.axisWidth / 2,
                     this.width - opts.padding.left - opts.padding.right, opts.axisWidth);
                 ctx.fill();
                 ctx.closePath();
@@ -394,7 +342,7 @@
                 //	Draw scale background
                 ctx.beginPath();
                 ctx.fillStyle = opts.axisColor;
-                ctx.rect(this.xCenter - opts.axisWidth / 2, opts.padding.top, opts.axisWidth, this.height - opts.padding.top - opts.padding.bottom);
+                ctx.rect(this.xCenter - opts.axisWidth / 2, this.yCenter - this.height/2 + opts.padding.top, opts.axisWidth, this.height - opts.padding.top - opts.padding.bottom);
                 ctx.fill();
                 ctx.closePath();
 

@@ -112,22 +112,28 @@
             if (typeof opts.img !== 'undefined' && opts.img !== null) {
                 var imbuffer = new Image();
                 imbuffer.src = opts.img;
-                var width = opts.width ? opts.width : defaults.width;
-                var height = opts.height ? opts.height : defaults.height;
+                var width = me._view.width = opts.width ? opts.width : defaults.width;
+                var height = me._view.height = opts.height ? opts.height : defaults.height;
                 if (horizontal) {
+                    me._view.x = vm.head;
                     var x = vm.head - width / 2;
                     var y = vm.y + height / 2;
                 } else {
                     var x = vm.x - width / 2;
                     var y = vm.y - height / 2;
                 }
-                //this.x = x + this.width / 2;
-                //this.y = y + this.height / 2;
-                //this.rightX = this.leftX + this.width;
-                //this.rightY = this.leftY + this.height;
-                ctx.beginPath();
-                ctx.drawImage(imbuffer, 0, 0, imbuffer.width, imbuffer.height, x, y, width, height);
-                ctx.restore();
+                if(imbuffer.complete){
+                    ctx.beginPath();
+                    ctx.drawImage(imbuffer, 0, 0, imbuffer.width, imbuffer.height, x, y, width, height);
+                    ctx.restore();
+                } else {
+                    imbuffer.onload = function(){
+                        ctx.beginPath();
+                        ctx.drawImage(imbuffer, 0, 0, imbuffer.width, imbuffer.height, x, y, width, height);
+                        ctx.restore();
+                    }
+                }
+                
                 return;
             }
 
@@ -149,13 +155,13 @@
             if (opts.pointer === 'point') {
             	
             	var shape = opts.shape ? opts.shape : defaults.shape;
-            	var width = opts.width ? opts.width : defaults.width;
-            	var height = opts.height ? opts.height : defaults.height;
-            	
+            	var width = me._view.width = opts.width ? opts.width : defaults.width;
+            	var height = me._view.height = opts.height ? opts.height : defaults.height;
+                
                 if (shape == 'circle') {
                 	
                 	if (horizontal) {
-                        var x = vm.head;
+                        var x = me._view.x = vm.head;
                     	var y = vm.y;
                     } else {
                         var x = vm.x;
@@ -180,19 +186,14 @@
                 }
                 if (shape == 'rect') {
                 	if (horizontal) {
+                        me._view.x = vm.head;
                         var x = vm.head - width / 2;
                     	var y = vm.y - height / 2;
                     } else {
                         var x = vm.x - width / 2;
                     	var y = vm.y - height / 2;
                     }
-                	/*
-                    this.x = x + this.width / 2;
-                    this.y = y + this.height / 2;
-                    this.rightX = this.leftX + this.width;
-                    this.rightY = this.leftY + this.height;
-                    */
-                    
+                	
                     ctx.beginPath();
                     ctx.rect(x, y, width, height);
                     ctx.fill();
@@ -201,7 +202,7 @@
                 if (shape == 'triangle') {
                 	
                     if (horizontal) {
-                        var x1 = vm.head,
+                        var x1 = me._view.x = vm.head,
                             y1 = vm.y + height/2,
                             x2 = x1 - width/2,
                             y2 = y1 - height,
@@ -215,12 +216,7 @@
                             x3 = x2,
                             y3 = y2 + height;
                     }
-					/*
-                    this.x = this.leftX + this.width / 2;
-                    this.y = this.leftY + this.height / 2;
-                    this.rightX = this.leftX + this.width;
-                    this.rightY = this.leftY + this.height;
-                    */
+					
 					ctx.beginPath();
                     ctx.moveTo(x1, y1);
                     ctx.lineTo(x2, y2);
@@ -231,7 +227,7 @@
                 if (shape == 'inverted-triangle') {
                     
                     if (horizontal) {
-                        var x1 = vm.head,
+                        var x1 = me._view.x = vm.head,
                             y1 = vm.y - height/2,
                             x2 = x1 - width/2,
                             y2 = y1 + height,
@@ -245,12 +241,7 @@
                             x3 = x2,
                             y3 = y2 + height;
                     }
-					/*
-                    this.x = this.leftX + this.width / 2;
-                    this.y = this.leftY + this.height / 2;
-                    this.rightX = this.leftX + this.width;
-                    this.rightY = this.leftY + this.height;
-                    */
+					
 					ctx.beginPath();
                     ctx.moveTo(x1, y1);
                     ctx.lineTo(x2, y2);
@@ -261,7 +252,7 @@
                 if (shape == 'bowtie') {
                     if (horizontal) {
                         
-                        var x1 = vm.head,
+                        var x1 = me._view.x = vm.head,
                             y1 = vm.y + width,
                             x2 = x1 - height/2,
                             y2 = y1 - width/2,
@@ -290,12 +281,7 @@
                             x31 = x21,
                             y31 = y21 + height;
                     }
-					/*
-                    this.x = this.leftX + this.width / 2;
-                    this.y = this.leftY + this.height / 2;
-                    this.rightX = this.leftX + this.width;
-                    this.rightY = this.leftY + this.height;
-					*/
+					
 					ctx.beginPath();
                     ctx.moveTo(x1, y1);
                     ctx.lineTo(x2, y2);
@@ -312,7 +298,7 @@
                 if (shape == 'diamond') {
                     if (horizontal) {
                         
-                        var x1 = vm.head,
+                        var x1 = me._view.x = vm.head,
                             y1 = vm.y - width/2 + width,
                             x2 = x1 - height/2,
                             y2 = y1 + width/2 + 0.5,
@@ -341,12 +327,7 @@
                             x31 = x21,
                             y31 = y21 + height;
                     }
-					/*
-                    this.x = this.leftX + this.width / 2;
-                    this.y = this.leftY + this.height / 2;
-                    this.rightX = this.leftX + this.width;
-                    this.rightY = this.leftY + this.height;
-					*/
+					
 					ctx.beginPath();
                     ctx.moveTo(x1, y1);
                     ctx.lineTo(x2, y2);
@@ -367,13 +348,90 @@
 		},
         
         tooltipPosition: function() {
-        	var me = this;
-			var vm = this._view;
-			return {
-				x: vm.x + (me._model.horizontal ? 0 : vm.width/2),
-				y: vm.y
-			};
-		}
+        	
+            var opts = this.getMeOptions();
+            var defaults = this._chart.options.elements.gaugerect;
+            var shape = opts.shape ? opts.shape : defaults.shape;
+
+            if (typeof opts.img !== 'undefined' && opts.img !== null){
+                var vm = this._view;
+                if(this._model.horizontal){
+                    var x = vm.x;
+                    var y = vm.y + vm.height/2;
+                } else {
+                    var x = vm.x;
+                    var y = vm.y - vm.height/2;
+                }
+                
+                return {
+                    x: x,
+                    y: y
+                };
+            }
+            
+            if (this._view && (typeof opts.pointer === 'undefined' || opts.pointer === 'bar')) {
+                var vm = this._view;
+                return {
+                    x: vm.x + (this._model.horizontal ? vm.width : vm.width/2),
+                    y: vm.y + (this._model.horizontal ? vm.height/2 : 0),
+                };
+            }
+            
+            if (this._view && typeof opts.pointer !== 'undefined' && opts.pointer === 'point') {
+                var vm = this._view;
+                var x = vm.x;
+                var y = vm.y;
+                if((shape === 'triangle' || shape === 'inverted-triangle') && !this._model.horizontal)
+                    var x = vm.x + vm.width; var y = vm.y;
+                 if((shape === 'triangle' || shape === 'inverted-triangle') && this._model.horizontal)
+                    var x = vm.x; var y = vm.y;
+                return {
+                    x: x,
+                    y: y
+                };
+            }
+            
+
+		},
+
+        inRange: function(mouseX, mouseY) {
+            var inRange = false;
+            var opts = this.getMeOptions();
+            var defaults = this._chart.options.elements.gaugerect;
+            var shape = opts.shape ? opts.shape : defaults.shape;
+
+            if (typeof opts.img !== 'undefined' && opts.img !== null){
+                var vm = this._view;
+                if(this._model.horizontal)
+                    inRange = mouseX >= vm.x - vm.width/2 && mouseX <= vm.x + vm.width/2 && mouseY >= vm.y + vm.height/2 && mouseY <= vm.y + vm.height + vm.height/2;
+                else
+                    inRange = mouseX >= vm.x - vm.width/2 && mouseX <= vm.x + vm.width/2 && mouseY >= vm.y - vm.height/2 && mouseY <= vm.y + vm.height/2;
+                return inRange;
+            }
+
+            if (this._view && (typeof opts.pointer === 'undefined' || opts.pointer === 'bar')) {
+                var vm = this._view;
+                if(vm.width >= 0 && vm.height >= 0)
+                    inRange = mouseX >= vm.x && mouseX <= vm.x + vm.width && mouseY >= vm.y && mouseY <= vm.y + vm.height;
+                if(vm.width < 0 && vm.height >= 0)
+                    inRange = mouseX >= (vm.x + vm.width) && mouseX <= vm.x && mouseY >= vm.y && mouseY <= vm.y + vm.height;
+                if(vm.width >= 0 && vm.height < 0)
+                    inRange = mouseX >= vm.x && mouseX <= vm.x + vm.width && mouseY >= vm.y + vm.height && mouseY <= vm.y;
+                if(vm.width < 0 && vm.height < 0)
+                    inRange = mouseX >= (vm.x + vm.width) && mouseX <= vm.x && mouseY >= vm.y + vm.height && mouseY <= vm.y;
+            }
+            if (this._view && typeof opts.pointer !== 'undefined' && opts.pointer === 'point') {
+                var vm = this._view;
+                inRange = mouseX >= vm.x - vm.width/2 && mouseX <= vm.x + vm.width/2 && mouseY >= vm.y - vm.height/2 && mouseY <= vm.y + vm.height/2;
+                if((shape === 'triangle' || shape === 'inverted-triangle') && !this._model.horizontal)
+                    inRange = mouseX >= vm.x + vm.width/2 && mouseX <= vm.x + vm.width + vm.width/2 && mouseY >= vm.y - vm.height/2 && mouseY <= vm.y + vm.height/2;
+                 if((shape === 'triangle' || shape === 'inverted-triangle') && this._model.horizontal)
+                    inRange = mouseX >= vm.x - vm.width/2 && mouseX <= vm.x + vm.width/2 && mouseY >= vm.y - vm.height/2 && mouseY <= vm.y + vm.height/2;
+
+            }
+
+            return inRange;
+        },
         
 	});
 	

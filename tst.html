@@ -51,8 +51,9 @@
     </div>
     <div style="width: 30%; float: left; padding: 0px;">
         <p>Point indicator type</p>
-        <div style="display: block; float: left; width: 45%;">
-            <canvas id="canvas9" height="311" width="212" style="display: block; float: left; width: 212px; height: 311px;"></canvas>
+        <div style="display: block; position: relative; float: left; width: 60%; height: 330px;">
+            <div id='bg_image' style="display: block; position: absolute; width: 100%; height: 100%; left: 0; top: 0; background-image: url('background.jpg');"></div>
+            <canvas id="canvas9" height="300" width="212" style="display: block; position: absolute; width: 212px; height: 311px; left: 0; top: 0;"></canvas>
         </div>
     </div>
     <div style="width: 60%; float: left; padding: 20px;">
@@ -562,7 +563,9 @@
             type: 'linearGauge',
             data: barChartData1,
             options: {
+                backgroundImage: 'background.jpg',
                 scale: {
+                    horizontal: false,
                     range: {
                         startValue: -100,
                         endValue: 500
@@ -597,7 +600,7 @@
 		            labels: {
 		                fontColor: 'rgb(255, 99, 132)'
 		            },
-		            position: 'left'
+		            position: 'top'
 		        }
             }
         });
@@ -660,9 +663,8 @@
             type: 'linearGauge',
             data: barChartData3,
             options: {
-                responsive: true,
-                animationEasing: "easeOutElastic",
                 scale: {
+                    horizontal: false,
                     range: {
                         startValue: -100,
                         endValue: 500
@@ -670,7 +672,7 @@
                     responsive: true,
                     font: {
                         fontName: 'Arial',
-                        fontSize: 12
+                        fontSize: 10
                     },
                     axisWidth: 6,
                     axisColor: '#9e343f',
@@ -697,8 +699,9 @@
                     }
                 },
             	legend: {
-		            position: 'left'
+		            position: 'bottom'
 		        }
+                
             }
         });
 
@@ -1002,14 +1005,14 @@
                         majorTicks: {
                             interval: 50,
                             width: 6,
-                            height: 1,
+                            height: 2,
                             offset: 1,
                             color: '#fe013a'
                         },
                         minorTicks: {
                             interval: 6.25,
                             width: 2,
-                            height: 1,
+                            height: 2,
                             offset: 0,
                             color: '#e1f305'
                         },
@@ -1024,7 +1027,7 @@
                 },
                 legend: {
                     display: true,
-                    position: 'bottom'
+                    position: 'left'
                 }
             }
             
@@ -1103,7 +1106,7 @@
                 },
                 legend: {
                     display: false,
-                    position: 'bottom'
+                    position: ''
                 }
             }
             
@@ -1120,6 +1123,7 @@
             data: barChartData11,
             options: {
                 responsive: true,
+                backgroundImage: 'background.jpg',
                 scale: {
                     horizontal: false,
                     range: {
