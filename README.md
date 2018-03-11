@@ -152,14 +152,14 @@ window.myBar = new Chart(ctx, {
 ### colorRanges:
 	array of objects, set color ranges for pointer which will accepted according to chart data value, object properties:
 
-		startpoint: start pointer range, point from which color range starts, don't set it below or above scale range
+        startpoint: start pointer range, point from which color range starts, don't set it below or above scale range
         breakpoint: stop pointer range, point where color range stops, don't set it below or above scale range
         color: color
 
 ### imageRanges:
 	array of objects, set image ranges for pointer which will accepted according to chart data value, object properties:
 
-		startpoint: start image range, point from which image range starts, don't set it below or above scale range
+        startpoint: start image range, point from which image range starts, don't set it below or above scale range
         breakpoint: stop pointer range, point where color range stops, don't set it below or above scale range
         img: image that will shown for current range
 
