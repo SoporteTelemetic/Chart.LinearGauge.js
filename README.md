@@ -134,6 +134,9 @@ window.myBar = new Chart(ctx, {
 ### fontFamily: 
 	define font family for text pointer
 
+### rotate:
+	define angle in degrees to rotate text pointer
+
 ### img: 
 	define img url if you want to use image as pointer (if setted this param, pointer will image, not needed to set pointer param) if you are using image ranges, you have to set this param, this image will used as default
 
