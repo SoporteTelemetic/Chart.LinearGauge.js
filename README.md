@@ -4,50 +4,50 @@ A linear gauge chart type extension for Chart.js originally conceptualized by [A
 
 All options extend any existing default chart.js settings
 
-# Scale
+## Scale
 
-horizontal: 
+###horizontal: 
 	Set scale orientation, false - vertical, true - horizontal
 	
-range: 
+###range: 
 	Object, set scale range (max and min for the scale). Containe two fields, startValue and endValue.
 
-font: 
+###font: 
 	Object, set font name and size for scale. Containe two fields, fontName and fontSize.
 	
-axisWidth: 
+###axisWidth: 
 	Set width of axes in pixels.
 	
-axisColor:
+###axisColor:
 	Set axis color.
 
-ticks:
+###ticks:
 	Describe scale ticks. There are two type of ticks, major and minor. For each type it is possible to set particular options. If some of them skipped, this type of ticks will not be displayed.
 	
 	majorTicks, minorTicks:
 		Describe major/minor ticks for scale. Object, contains following fields:
 
-			interval: set interval for ticks repeating according to scale range
+            interval: set interval for ticks repeating according to scale range
             customValues: array, set custom values on scale where tick has to be shown
             width: width in pixels
             height: height in pixels
             offset: offset in pixels from scale center
             color: color
             
-scaleLabel:
+###scaleLabel:
 	Describe scale labels. Object, contains following fields:
 
-		display: show or hide labels
-		interval: set interval for scale labels repeating according to scale range
+        display: show or hide labels
+        interval: set interval for scale labels repeating according to scale range
         customValues: array, set custom values on scale where label has to be shown
         units: mark that will added to each scale label
         offset: offset in pixels from scale center
         color: color
 
-scaleColorRanges:
+###scaleColorRanges:
 	Set particular colors on the part of scale. Array of objects, contains following fields:
 
-		start: start scale range, point from which color range starts, don't set it below or above scale range
+        start: start scale range, point from which color range starts, don't set it below or above scale range
         end: stop scale range, point where color range stops, don't set it below or above scale range
         color: color	
 	
@@ -116,27 +116,47 @@ window.myBar = new Chart(ctx, {
 
 # Dataset Options
 
-data: array, must contain only one value, stacked charts is not support
-pointer: define type of pointer which will used to show data, if not setted, default is 'bar', 
-			available pointers: 'bar', 'point', 'text'
-shape: define shape for point pointer: 'triangle', 'circle', 'rect', 'inverted-triangle', 'bowtie', 'diamond'
-text: define text for text pointer
-fontSize: define font size for text pointer
-fontFamily: define font family for text pointer
-img: define img url if you want to use image as pointer (if setted this param, pointer will image, not needed to set pointer param)
-	if you are using image ranges, you have to set this param, this image will used as default
-width: width of pointer
-height: height of pointer
-offset: pointer offset from scale center
-backgroundColor: pointer color
-colorRanges:
+###data: 
+	array, must contain only one value, stacked charts is not support
+
+###pointer: 
+	define type of pointer which will used to show data, if not setted, default is 'bar', available pointers: 'bar', 'point', 'text'
+
+###shape: 
+	define shape for point pointer: 'triangle', 'circle', 'rect', 'inverted-triangle', 'bowtie', 'diamond'
+
+###text: 
+	define text for text pointer
+
+###fontSize: 
+	define font size for text pointer
+
+###fontFamily: 
+	define font family for text pointer
+
+###img: 
+	define img url if you want to use image as pointer (if setted this param, pointer will image, not needed to set pointer param) if you are using image ranges, you have to set this param, this image will used as default
+
+###width: 
+	width of pointer
+
+###height: 
+	height of pointer
+
+###offset: 
+	pointer offset from scale center
+
+###backgroundColor: 
+	pointer color
+
+###colorRanges:
 	array of objects, set color ranges for pointer which will accepted according to chart data value, object properties:
 
 		startpoint: start pointer range, point from which color range starts, don't set it below or above scale range
         breakpoint: stop pointer range, point where color range stops, don't set it below or above scale range
         color: color
 
-imageRanges:
+###imageRanges:
 	array of objects, set image ranges for pointer which will accepted according to chart data value, object properties:
 
 		startpoint: start image range, point from which image range starts, don't set it below or above scale range
