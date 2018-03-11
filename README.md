@@ -1,4 +1,5 @@
 A linear gauge chart type extension for Chart.js originally conceptualized by [A. Scott McCulloch, PhD](http://www.tapintu.com) and coded by [Alexander Vantsov](mailto:vantsov@ukr.net) (vantsov@ukr.net).
+Example page you can see [here](http://alexapp.pp.ua/test/lgv2/).
 
 # Options
 
@@ -56,11 +57,10 @@ All options extend any existing default chart.js settings
 
 ```javascript
 window.myBar = new Chart(ctx, {
-	type: 'linearGauge',
+    type: 'linearGauge',
     data: barChartData,
     options: {
         responsive: true,
-        animationEasing: "easeInBounce",
         scale: {
         	horizontal: false,
             range: {
