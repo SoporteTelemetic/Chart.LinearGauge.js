@@ -17,6 +17,12 @@
 				height: 6,
 				shape: 'rect',
 				pointer: 'bar',
+				text: 'Pointer Text',
+		        fontSize: 14,
+		        fontFamily: 'Arial',
+		        offset: 0,
+		        rotate: 0,
+		        color: '#000'
 			}
 		}
 	});
@@ -40,7 +46,9 @@
             for (var k = 0; k < colors.length; k++) {
                 if ((k + 1) < colors.length) {
                     gw2 += widths[k + 1] / 2;
-                    grd.addColorStop(gw2 / width, colors[k + 1]);
+                    var ks = gw2 / width;
+                    if(ks > 1) ks = 1;
+                    grd.addColorStop(ks, colors[k + 1]);
                 } else grd.addColorStop(1, colors[k]);
                 c.closePath();
                 if ((k + 1) < colors.length)
@@ -83,7 +91,7 @@
             bc = this.rangeColorImage.data[k * 4 + 2];
             ac = this.rangeColorImage.data[k * 4 + 3];
 
-            return 'RGBA(' + rc + ', ' + gc + ', ' + bc + ', ' + ac + ')';
+            return 'rgba(' + rc + ', ' + gc + ', ' + bc + ', ' + ac/256 + ')';
         },
 
         getMeOptions: function() {
@@ -102,16 +110,33 @@
 			var defaults = me._chart.options.elements.gaugerect;
 			
 			ctx.save();
-			ctx.fillStyle = me._model.backgroundColor;
 			if (typeof(opts.colorRanges) == 'object' && opts.colorRanges.length > 0) {
-                ctx.fillStyle = me.getColor(me._model.value, me._model.scaleValue);
-            }
+				var clr = me.getColor(me._model.value, me._model.scaleValue);
+                ctx.fillStyle = clr;
+            } else
+				ctx.fillStyle = me._model.backgroundColor;
+			
             
             opts.pointer = opts.pointer ? opts.pointer : defaults.pointer;
 
             if (typeof opts.img !== 'undefined' && opts.img !== null) {
-                var imbuffer = new Image();
-                imbuffer.src = opts.img;
+            	var imgsrc = opts.img;
+            	if(typeof opts.imageRanges !== 'undefined' && typeof opts.imageRanges.length !== 'undefined' && opts.imageRanges.length > 0){
+					for(var i in opts.imageRanges){
+						var r = opts.imageRanges[i];
+						if(me._model.value >= r.startpoint && me._model.value < r.breakpoint && typeof r.img !== 'undefined' && r.img !== ''){
+							imgsrc = r.img;
+							break;
+						}
+					}
+				}
+				if(typeof this.imgs === 'undefined') this.imgs = [];
+				var imbuffer = null;
+				for(var i in this.imgs){
+					if(this.imgs[i].src === imgsrc) imbuffer = this.imgs[i]; break;
+				}
+                if(imbuffer === null) imbuffer = new Image(); imbuffer.src = imgsrc; this.imgs.push(imbuffer);
+                
                 var width = me._view.width = opts.width ? opts.width : defaults.width;
                 var height = me._view.height = opts.height ? opts.height : defaults.height;
                 if (horizontal) {
@@ -138,6 +163,7 @@
             }
 
             if(typeof opts.pointer === 'undefined' || opts.pointer === 'bar'){
+            	
                 // Stroke Line
                 ctx.beginPath();
                 
@@ -343,6 +369,24 @@
                 }
             	
             	
+            }
+            
+            if(opts.pointer === 'text'){
+                var rotate = opts.rotate ? opts.rotate : defaults.rotate;
+            	var text = opts.text ? opts.text : defaults.text;
+            	var fontSize = opts.fontSize ? opts.fontSize : defaults.fontSize;
+            	var fontFamily = opts.fontFamily ? opts.fontFamily : defaults.fontFamily;
+            	var offset = opts.offset ? opts.offset : defaults.offset;
+            	var color = opts.color ? opts.color : defaults.color;
+                // Stroke Line
+                ctx.beginPath();
+                ctx.translate(vm.x, vm.y);
+				ctx.rotate(Math.PI*2*(rotate/360));
+				ctx.font = fontSize + "px " + fontFamily;
+				ctx.fillStyle = color;
+				//ctx.textAlign = "center";
+				ctx.fillText(text, 0, 0);
+                ctx.restore();
             }
 			
 		},

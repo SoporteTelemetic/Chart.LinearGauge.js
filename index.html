@@ -47,7 +47,10 @@
     </div>
     <div style="width: 30%; float: left; padding: 20px;">
         <p>Color ranges</p>
-        <canvas id="canvas8" height="425" width="510" style="width: 510px; height: 425px;"></canvas>
+        <div style="display: block; position: relative; float: left; width: 60%; height: 485px;">
+            <div id='bg_image' style="display: block; position: absolute; width: 100%; height: 100%; left: 0; top: 0; background-image: url('img/background.jpg');"></div>
+        	<canvas id="canvas8" height="425" width="210" style="display: block; position: absolute; width: 210px; height: 425px; left: 0; top: 0;"></canvas>
+        </div>
     </div>
     <div style="width: 30%; float: left; padding: 0px;">
         <p>Point indicator type</p>
@@ -264,32 +267,38 @@
                 colorRanges: [{
                         startpoint: -50,
                         breakpoint: -30,
-                        color: '#6154ab'
+                        //color: '#6154ab'
+                        color: 'rgba(97, 84, 171, 0.4)'
                     }, {
                         startpoint: -30,
                         breakpoint: 30,
-                        color: '#74f40b'
+                        //color: '#74f40b'
+                        color: 'rgba(116, 244, 11, 0.4)'
                     }, {
                         startpoint: 30,
                         breakpoint: 50,
-                        color: '#fd0902'
+                        //color: '#fd0902'
+                        color: 'rgba(253, 9, 2, 0.4)'
                 }]
             }, {
                 data: [39],
                 offset: 17,
                 backgroundColor: '#352bfd',
                 colorRanges: [{
-                        startpoint: -50,
-                        breakpoint: -30,
-                        color: '#6154ab'
+                        startpoint: -60,
+                        breakpoint: -10,
+                        //color: '#6154ab'
+                        color: 'rgba(97, 84, 171, 0.4)'
                     }, {
                         startpoint: -30,
                         breakpoint: 30,
-                        color: '#74f40b'
+                        //color: '#74f40b'
+                        color: 'rgba(116, 244, 11, 0.4)'
                     }, {
                         startpoint: 30,
                         breakpoint: 50,
-                        color: '#fd0902'
+                        //color: '#fd0902'
+                        color: 'rgba(253, 9, 2, 0.4)'
                 }]
             }, {
                 data: [39],
@@ -298,15 +307,18 @@
                 colorRanges: [{
                         startpoint: -50,
                         breakpoint: -30,
-                        color: '#6154ab'
+                        //color: '#6154ab'
+                        color: 'rgba(97, 84, 171, 0.4)'
                     }, {
                         startpoint: -30,
                         breakpoint: 30,
-                        color: '#74f40b'
+                        //color: '#74f40b'
+                        color: 'rgba(116, 244, 11, 0.4)'
                     }, {
                         startpoint: 30,
                         breakpoint: 50,
-                        color: '#fd0902'
+                        //color: '#fd0902'
+                        color: 'rgba(253, 9, 2, 0.4)'
                 }]
             }
         ]
@@ -532,6 +544,16 @@
             color: 'red'
         }]
     });
+    barChartData11.datasets.push({
+        data: [0],
+        pointer: 'text',
+        text: 'Pointer Text',
+        fontSize: 21,
+        fontFamily: 'Arial',
+        offset: 40,
+        rotate: -30,
+        color: '#f00'
+    });
 
     var barChartData12 = {labels: [], datasets: []};
     barChartData12.datasets.push({
@@ -554,6 +576,22 @@
         height: 30,
         offset: 0,
         img: 'img/shapes7.png'
+    });
+    barChartData12.datasets.push({
+        data: [4],
+        width: 30,
+        height: 40,
+        offset: 57,
+        img: 'img/hand-pointer.png',
+        imageRanges: [{
+            startpoint: -10,
+            breakpoint: 0,
+            img: 'img/diamond3.png'
+        }, {
+            startpoint: 15,
+            breakpoint: 25,
+            img: 'img/shapes7.png'
+        }]
     });
     </script>
     <script>
@@ -959,7 +997,8 @@
                     scaleColorRanges: [{
                         start: 30,
                         end: 50,
-                        color: '#fe5066'
+                        //color: '#fe5066'
+                        color: 'rgba(254, 80, 102, 0.3)'
                     }, {
                         start: -50,
                         end: -30,
@@ -1174,6 +1213,7 @@
             barChartData11.datasets[6].data = [randomScalingFactor(28) - 14];
             barChartData11.datasets[7].data = [randomScalingFactor(28) - 14];
             barChartData11.datasets[8].data = [randomScalingFactor(28) - 14];
+            barChartData11.datasets[9].data = [randomScalingFactor(28) - 14];
             window.myBar11.update();
         }, 3000);
 		
@@ -1234,8 +1274,9 @@
             barChartData12.datasets[0].data = [randomScalingFactor(35) - 10];
             barChartData12.datasets[1].data = [randomScalingFactor(35) - 10];
             barChartData12.datasets[2].data = [randomScalingFactor(35) - 10];
+            barChartData12.datasets[3].data = [randomScalingFactor(35) - 10];
             window.myBar12.update();
-        }, 10000);
+        }, 1000);
 
 
 
