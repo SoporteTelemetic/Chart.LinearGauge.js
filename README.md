@@ -1,4 +1,4 @@
-A linear gauge chart type extension for Chart.js originally conceptualized by [A. Scott McCulloch, PhD](http://www.tapintu.com) and coded by [Alexander V.](https://www.upwork.com/o/profiles/users/_~01f75d88b019d87523/)
+A linear gauge chart type extension for Chart.js originally conceptualized by [A. Scott McCulloch, PhD](http://www.tapintu.com) and coded by [Alexander Vantsov.](vantsov@ukr.net)
 
 # Options
 
