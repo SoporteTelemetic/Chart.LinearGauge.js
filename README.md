@@ -166,14 +166,14 @@ window.myBar = new Chart(ctx, {
 	array of objects, set image ranges for pointer which will accepted according to chart data value, object properties:
 
         startpoint: start image range, point from which image range starts, don't set it below or above scale range
-        breakpoint: stop pointer range, point where color range stops, don't set it below or above scale range
+        breakpoint: stop image range, point where image range stops, don't set it below or above scale range
         img: image that will shown for current range
         
 ### textRanges:
 	array of objects, set text ranges for pointer which will accepted according to chart data value, object properties:
 
-        startpoint: start image range, point from which image range starts, don't set it below or above scale range
-        breakpoint: stop pointer range, point where color range stops, don't set it below or above scale range
+        startpoint: start text range, point from which text range starts, don't set it below or above scale range
+        breakpoint: stop text range, point where text range stops, don't set it below or above scale range
         text: text that will shown for current range
 
 
