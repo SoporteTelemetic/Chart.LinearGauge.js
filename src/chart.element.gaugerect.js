@@ -378,15 +378,39 @@
             	var fontFamily = opts.fontFamily ? opts.fontFamily : defaults.fontFamily;
             	var offset = opts.offset ? opts.offset : defaults.offset;
             	var color = opts.color ? opts.color : defaults.color;
-                // Stroke Line
-                ctx.beginPath();
-                ctx.translate(vm.x, vm.y);
-				ctx.rotate(Math.PI*2*(rotate/360));
-				ctx.font = fontSize + "px " + fontFamily;
-				ctx.fillStyle = color;
+            	
+            	if(typeof opts.textRanges !== 'undefined' && typeof opts.textRanges.length !== 'undefined' && opts.textRanges.length > 0){
+					for(var i in opts.textRanges){
+						var r = opts.textRanges[i];
+						if(me._model.value >= r.startpoint && me._model.value < r.breakpoint && typeof r.text !== 'undefined' && r.text !== ''){
+							text = r.text;
+							break;
+						}
+					}
+				}
+				
+				// Stroke Line
+	            ctx.beginPath();
+	            ctx.font = fontSize + "px " + fontFamily;
+	            var arrayOfThings = [];
+	            arrayOfThings.push(text);
+				var tlen = helpers.longestText(ctx, ctx.font, arrayOfThings);
+				if(horizontal) vm.x = me._view.x = vm.head;
+				if(typeof opts.textPosition !== 'undefined' && opts.textPosition === 'center'){
+					ctx.translate(vm.x - tlen/2, vm.y + fontSize/3);
+				}
+				else if(typeof opts.textPosition !== 'undefined' && opts.textPosition === 'right'){
+					ctx.translate(vm.x - tlen, vm.y + fontSize/3);
+				} else {
+	                ctx.translate(vm.x, vm.y + fontSize/3);
+				}
+				
+            	ctx.rotate(Math.PI*2*(rotate/360));
+				//ctx.fillStyle = color;
 				//ctx.textAlign = "center";
 				ctx.fillText(text, 0, 0);
                 ctx.restore();
+                
             }
 			
 		},

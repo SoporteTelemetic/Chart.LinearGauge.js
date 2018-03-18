@@ -136,6 +136,9 @@ window.myBar = new Chart(ctx, {
 
 ### rotate:
 	define angle in degrees to rotate text pointer
+	
+### textPosition:
+	define alignment text position related to offset, possible settings: 'left', 'center', 'right'.
 
 ### img: 
 	define img url if you want to use image as pointer (if setted this param, pointer will image, not needed to set pointer param) if you are using image ranges, you have to set this param, this image will used as default
@@ -165,6 +168,13 @@ window.myBar = new Chart(ctx, {
         startpoint: start image range, point from which image range starts, don't set it below or above scale range
         breakpoint: stop pointer range, point where color range stops, don't set it below or above scale range
         img: image that will shown for current range
+        
+### textRanges:
+	array of objects, set text ranges for pointer which will accepted according to chart data value, object properties:
+
+        startpoint: start image range, point from which image range starts, don't set it below or above scale range
+        breakpoint: stop pointer range, point where color range stops, don't set it below or above scale range
+        text: text that will shown for current range
 
 
 # Sample Dataset Options
