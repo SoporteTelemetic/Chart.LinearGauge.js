@@ -1,4 +1,7 @@
 A linear gauge chart type extension for Chart.js originally conceptualized by [A. Scott McCulloch, PhD](http://www.tapintu.com) and coded by [Alexander Vantsov](mailto:vantsov@ukr.net) (vantsov@ukr.net).
+
+Updated to work with Chart.js v2.x
+
 Example page you can see [here](http://alexapp.pp.ua/test/lgv2/).
 
 # Options
