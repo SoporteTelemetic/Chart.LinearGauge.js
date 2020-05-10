@@ -1,66 +1,63 @@
-
-
 (function(Chart) {
 	var helpers = Chart.helpers;
 	var plugins = Chart.plugins;
-    Chart.defaults.global.animation.duration = 1000;
-
+	Chart.defaults.global.animation.duration = 1000;
 
 	Chart.defaults._set('linearGauge', {
 		scale: {
 			type: 'linearGauge',
-            horizontal: false,
-            range: {
-                startValue: -100,
-                endValue: 500
-            },
-            responsive: true,
-            font: {
-                fontName: 'Arial',
-                fontSize: 12
-            },
-            axisWidth: 6,
-            ticks: {
-                majorTicks: {
-                    interval: 100,
-                    height: 1,
-                }
-            },
-            scaleLabel: {
-                display: true,
-                interval: 100,
-                units: '',
-                customValues: [],
-                offset: -10,
-                color: '#777b80'
-            }
-        },
-        padding: {
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0
-        },
-        tooltips: {
-            callbacks: {
-                label: function(tooltipItem, data) {
-                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+			horizontal: false,
+			range: {
+				startValue: -100,
+				endValue: 500
+			},
+			responsive: true,
+			font: {
+				fontName: 'Arial',
+				fontSize: 12
+			},
+			axisWidth: 6,
+			ticks: {
+				majorTicks: {
+					interval: 100,
+					height: 1,
+				}
+			},
+			scaleLabel: {
+				display: true,
+				interval: 100,
+				units: '',
+				customValues: [],
+				offset: -10,
+				color: '#777b80'
+			}
+		},
+		padding: {
+			top: 0,
+			bottom: 0,
+			left: 0,
+			right: 0
+		},
+		tooltips: {
+			callbacks: {
+				label: function(tooltipItem, data) {
+					var label = data.datasets[tooltipItem.datasetIndex].label || '';
 
-                    if (label) {
-                        label += ': ';
-                    }
-                    label += Math.round(data.datasets[tooltipItem.datasetIndex].data[0] * 100) / 100;
-                    return label;
-                }
-            }
-        },
-        legend: {
-            display: true,
-            labels: {
-                fontColor: 'rgb(0, 0, 0)'
-            },
-            position: 'bottom'
-        }
+					if (label) {
+						label += ': ';
+					}
+					label += Math.round(data.datasets[tooltipItem.datasetIndex].data[0] * 100) / 100;
+					return label;
+				}
+			}
+		},
+		legend: {
+			display: true,
+			labels: {
+				fontColor: 'rgb(0, 0, 0)'
+			},
+			position: 'bottom'
+		}
 	});
 
 	Chart.controllers.linearGauge = Chart.DatasetController.extend({
@@ -148,11 +145,11 @@
 			model.value = vscale.getRightValue(datasets[me.index].data[index]);
 
 			model.scaleValue = 0;
-            if (horizontal) {
-                model.scaleValue = vscale.width / (vscale.options.range.endValue - vscale.options.range.startValue);
-            } else {
-                model.scaleValue = vscale.height / (vscale.options.range.endValue - vscale.options.range.startValue);
-            }
+			if (horizontal) {
+				model.scaleValue = vscale.width / (vscale.options.range.endValue - vscale.options.range.startValue);
+			} else {
+				model.scaleValue = vscale.height / (vscale.options.range.endValue - vscale.options.range.startValue);
+			}
 			
 			if(typeof start.x === 'undefined' && typeof start.y === 'undefined'){
 				if(horizontal){
